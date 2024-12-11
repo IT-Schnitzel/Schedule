@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # Сервис для PostgreSQL
+  db:
+    image: postgres:16   # Используем официальное изображение PostgreSQL
+    container_name: schedule_db
+    environment:
+      POSTGRES_USER: root  # Указываем имя пользователя для базы данных
+      POSTGRES_PASSWORD: 1  # Указываем пароль для пользователя
+      POSTGRES_DB: schedule_db  # Указываем имя базы данных
+    ports:
+      - "5432:5432"  # Пробрасываем порт 5432 для подключения из приложения
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Монтируем том для хранения данных
+
+  # Ваше приложение
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db  # Указываем, что приложение зависит от базы данных
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/schedule_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1
+
+volumes:
+  postgres_data:  # Том для данных PostgreSQL, чтобы не потерять данные при перезапуске контейнера

@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="schedule-management-service-1.0-SNAPSHOT.jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/schedule_management_service_1_0_SNAPSHOT_jar</output-path>
+    <root id="archive" name="schedule-management-service-1.0-SNAPSHOT.jar.jar" />
+  </artifact>
+</component>
